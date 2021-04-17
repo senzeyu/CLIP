@@ -335,6 +335,7 @@ class CLIP(nn.Module):
 
     def encode_image(self, image):
         #return (pooled_x, x) when self.visual is vision transformer
+        print('\nENCODE IMAGE UPDATED\n')
         return self.visual(image.type(self.dtype))
 
     def encode_text(self, text):
@@ -349,7 +350,7 @@ class CLIP(nn.Module):
         # x.shape = [batch_size, n_ctx, transformer.width]
         # take features from the eot embedding (eot_token is the highest number in each sequence)
         pooled_x = x[torch.arange(x.shape[0]), text.argmax(dim=-1)] @ self.text_projection
-
+        print('\nENCODE TEXT UPDATED\n')
         return pooled_x, x
 
     def forward(self, image, text):
